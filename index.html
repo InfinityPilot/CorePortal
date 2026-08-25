@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>CorePortal v1.0 | 50 Exclusive Rewards</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at 80% 10%, #0a0c1a, #02040f);
+      font-family: 'Inter', system-ui, sans-serif;
+      padding: 2rem 1.5rem;
+      min-height: 100vh;
+    }
+
+    .main-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .content-area {
+      flex: 3;
+      min-width: 250px;
+    }
+
+    .level-sidebar {
+      flex: 0.9;
+      min-width: 200px;
+      position: sticky;
+      top: 2rem;
+      align-self: flex-start;
+      background: rgba(15, 20, 35, 0.75);
+      backdrop-filter: blur(16px);
+      border-radius: 2rem;
+      padding: 1.5rem 1rem;
+      border: 1px solid rgba(251, 146, 60, 0.5);
+      height: fit-content;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .level-sidebar h3 {
+      color: #ffd6a5;
+      font-size: 1.2rem;
+      text-align: center;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .level-sidebar h3 i {
+      color: #fb923c;
+    }
+
+    .triggers-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+
+    .level-btn {
+      background: linear-gradient(105deg, #1a1e32, #11152a);
+      border: 1px solid #fb923c;
+      border-radius: 60px;
+      padding: 8px 0;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: #ffdead;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .level-btn i {
+      font-size: 0.75rem;
+      color: #fb923c;
+    }
+
+    .level-btn:hover {
+      background: linear-gradient(105deg, #2a2f4a, #1a1f38);
+      border-color: #f97316;
+      transform: translateY(-2px);
+    }
+
+    .level-btn.active {
+      background: linear-gradient(105deg, #ea580c, #c2410c);
+      border-color: #fdba74;
+      color: white;
+    }
+
+    .level-btn.active i {
+      color: #fff0e0;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fb923c, #f97316, #fdba74);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      justify-content: center;
+    }
+
+    .hero h1 i {
+      background: none;
+      -webkit-text-fill-color: #fb923c;
+      font-size: 2rem;
+    }
+
+    @media (max-width: 550px) {
+      .hero h1 {
+        font-size: 1.4rem;
+        gap: 8px;
+      }
+      .hero h1 i {
+        font-size: 1.3rem;
+      }
+    }
+    @media (max-width: 400px) {
+      .hero h1 {
+        font-size: 1.2rem;
+        gap: 6px;
+      }
+      .hero h1 i {
+        font-size: 1.1rem;
+      }
+    }
+
+    .stats-card {
+      background: rgba(10, 14, 30, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      padding: 1rem 1.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 2rem;
+      margin-bottom: 0;
+      border: 1px solid rgba(249, 115, 22, 0.4);
+    }
+
+    .total-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #fcd9b6;
+      font-weight: 600;
+    }
+
+    .total-box i {
+      font-size: 2rem;
+      color: #fb923c;
+    }
+
+    .total-number {
+      background: #0a0e20;
+      padding: 6px 20px;
+      border-radius: 50px;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fb923c;
+      font-family: monospace;
+      letter-spacing: 2px;
+      border: 1px solid #f97316;
+    }
+
+    .legend {
+      display: flex;
+      gap: 20px;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #2d3a5e;
+    }
+
+    .dot.active {
+      background: #10b981;
+      box-shadow: 0 0 6px #34d399;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 1.5rem 0 1rem 0;
+      padding-bottom: 6px;
+      border-bottom: 2px solid rgba(249, 115, 22, 0.5);
+    }
+
+    .section-title i {
+      font-size: 1.5rem;
+      color: #fb923c;
+    }
+
+    .section-title h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fee3c0;
+    }
+
+    .badge {
+      background: #f97316;
+      padding: 2px 12px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #0a0a1a;
+    }
+
+    .btn-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+      max-height: 50vh;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+
+    .btn-grid::-webkit-scrollbar {
+      width: 6px;
+    }
+    .btn-grid::-webkit-scrollbar-track {
+      background: #1e253e;
+      border-radius: 10px;
+    }
+    .btn-grid::-webkit-scrollbar-thumb {
+      background: #fb923c;
+      border-radius: 10px;
+    }
+
+    .offer-btn {
+      background: linear-gradient(105deg, #13182e, #0c1022);
+      border: 1px solid #3b3f66;
+      border-radius: 60px;
+      padding: 12px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      color: #e2e8f0;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .offer-btn:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(105deg, #1c2340, #12172e);
+      border-color: #fb923c;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+    }
+
+    .offer-btn.disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none;
+      background: linear-gradient(105deg, #1a2a1a, #0f1f0f);
+      border-color: #4a6a4a;
+      transform: none;
+    }
+
+    .btn-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow: hidden;
+    }
+    .btn-left i {
+      font-size: 1.2rem;
+      color: #fb923c;
+      min-width: 28px;
+      text-align: center;
+    }
+    .btn-left span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .click-count {
+      background: #00000055;
+      border-radius: 40px;
+      padding: 3px 12px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #fdba74;
+      border: 0.5px solid #fb923c;
+      font-family: monospace;
+    }
+    .offer-btn.clicked {
+      background: linear-gradient(105deg, #0f3b2a, #0a261c);
+      border-color: #10b981;
+    }
+    .offer-btn.clicked .click-count {
+      background: #064e3b;
+      color: #facc15;
+    }
+
+    .reset-btn {
+      background: rgba(249, 115, 22, 0.15);
+      border: 1px solid #f97316;
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #fdba74;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .reset-btn:hover {
+      background: #f9731630;
+      color: #ffffff;
+      border-color: #fb923c;
+    }
+
+    footer {
+      margin-top: 1.5rem;
+      text-align: center;
+      color: #6b7280;
+      font-size: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    @media (max-width: 850px) {
+      .main-container { flex-direction: column; }
+      .level-sidebar { display: none; }
+      .mobile-tier-bar {
+        display: block;
+        background: rgba(15, 20, 35, 0.85);
+        backdrop-filter: blur(16px);
+        border-radius: 1.5rem;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(251, 146, 60, 0.5);
+      }
+      .mobile-tier-bar h3 {
+        color: #ffd6a5;
+        font-size: 1rem;
+        text-align: center;
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .mobile-triggers {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+      }
+      .mobile-tier-btn {
+        background: linear-gradient(105deg, #1a1e32, #11152a);
+        border: 1px solid #fb923c;
+        border-radius: 60px;
+        padding: 6px 0;
+        font-weight: 700;
+        font-size: 0.65rem;
+        color: #ffdead;
+        cursor: pointer;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+      }
+      .mobile-tier-btn i { font-size: 0.65rem; color: #fb923c; }
+      .mobile-tier-btn.active {
+        background: linear-gradient(105deg, #ea580c, #c2410c);
+        border-color: #fdba74;
+        color: white;
+      }
+      .btn-grid { max-height: 45vh; }
+      .stats-card { margin-top: 1.5rem; }
+    }
+    @media (min-width: 851px) {
+      .mobile-tier-bar { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="main-container">
+  <div class="content-area">
+    <div class="hero">
+      <h1><i class="fas fa-crown"></i> CorePortal v1.0 <i class="fas fa-gem"></i></h1>
+    </div>
+
+    <div class="mobile-tier-bar" id="mobileTierBar">
+      <h3><i class="fas fa-layer-group"></i> Choose Tier</h3>
+      <div class="mobile-triggers" id="mobileTriggers"></div>
+    </div>
+
+    <div class="section-title" id="dynamicSectionTitle">
+      <i class="fas fa-layer-group"></i>
+      <h2 id="levelName">Tier 1 · Starter Pack</h2>
+      <div class="badge" id="levelBadge">3 Offers</div>
+    </div>
+    <div id="offersGrid" class="btn-grid"></div>
+
+    <div class="stats-card">
+      <div class="total-box">
+        <i class="fas fa-chart-line"></i>
+        <span>Total Clicks</span>
+        <div class="total-number" id="totalClicks">0</div>
+      </div>
+      <div class="legend">
+        <span><i class="dot"></i> Pending</span>
+        <span><i class="dot active"></i> Claimed</span>
+      </div>
+    </div>
+
+    <footer>
+      <span><i class="far fa-clock"></i> 50 Live Rewards · 17 Exclusive Tiers · Click & Collect</span>
+      <div class="reset-btn" id="resetAllBtn"><i class="fas fa-trash-alt"></i> Reset Counters</div>
+    </footer>
+  </div>
+
+  <div class="level-sidebar">
+    <h3><i class="fas fa-layer-group"></i> Choose Tier</h3>
+    <div class="triggers-grid" id="desktopTriggers"></div>
+  </div>
+</div>
+
+<script>
+  // ==================== 50 LINKS (bloomix123.com) ====================
+  const ALL_LINKS = [
+    "https://bloomix123.com/avzjjjyeja?key=4ab48979b5bf9b29a69eb10b1d850aee",
+    "https://bloomix123.com/qnf7qxydb?key=19106cdac4fcd6534a0e237820df6c31",
+    "https://bloomix123.com/ebxxijctrr?key=d20393d80bc5a0ff9b3d3314b05563be",
+    "https://bloomix123.com/u85g5nrbs7?key=b06f5e6406801ac5517e11c0fa12c315",
+    "https://bloomix123.com/g8izh09zv?key=b12cde8eb01f7f0649a29eadace5f870",
+    "https://bloomix123.com/pjie4kr7?key=0f1aa928304d11b2965f31feebc93a09",
+    "https://bloomix123.com/f7q820f04s?key=ba75c09e6aa583d9069b04bc53cdbb94",
+    "https://bloomix123.com/aj2xyhf7?key=0fea00ed51789a591b2ec7fe6e7601f7",
+    "https://bloomix123.com/dmqkcc9s8?key=cb7b7282af57219a0660028e88846784",
+    "https://bloomix123.com/wqr3ipbja?key=3f9a48672f5807195338ab9f726f9c7d",
+    "https://bloomix123.com/f3p5p2i76?key=0580c2e0cb49106cb50babb464e76c48",
+    "https://bloomix123.com/gjnecxb5n?key=1ea3195bf594228bdde544ed51ae7ee6",
+    "https://bloomix123.com/f5ygmj4k?key=875eb3f191286f72bf987a4e07a531f1",
+    "https://bloomix123.com/jdvbfx30b8?key=5f3b19764d22276f51b898cdfd8d0877",
+    "https://bloomix123.com/xabz6jzbby?key=ff01e5ed54129e21a4510d80de735860",
+    "https://bloomix123.com/a7ejpg3w3z?key=d205c6d168d70d41b51ed47d1fce7f07",
+    "https://bloomix123.com/ubixk7m3?key=e54b67d84349f2b54cd9b78810c291fb",
+    "https://bloomix123.com/gxsiww1i?key=68a287442f5d9df3e9682c92b19843b7",
+    "https://bloomix123.com/yjcwq2nr?key=3bbf0dbe04ca62feae7dd8bf5a1a4919",
+    "https://bloomix123.com/smfqu1hw2?key=3a2827dea4dc06ea39b4279f48b0e58d",
+    "https://bloomix123.com/rimdjgwv97?key=f5eeae619cc1455767fbd4653eac4647",
+    "https://bloomix123.com/pxu6trnka?key=3472e7f6bcdbf65c888bbe79412457d3",
+    "https://bloomix123.com/b2c0unvj5r?key=c41967cd1a6a78c91e19ccf8808f155b",
+    "https://bloomix123.com/uwsmygu3?key=defeccf2e6a0bed85262576b433a3b9f",
+    "https://bloomix123.com/ahhrgjr34?key=ddeb8feb16ac41c48d1dd801728d1bd7",
+    "https://bloomix123.com/urjwzkkrs?key=e7f22a8890723fddb2005bafceb160ee",
+    "https://bloomix123.com/g4k9t18w0b?key=ccb1d971613cb52a017c05e64eed9774",
+    "https://bloomix123.com/ukuaygbry?key=88f19b6ec6085a3220f4053d186f09f9",
+    "https://bloomix123.com/vgt4gb9u03?key=ef05acc0e12c527a78eeb39808db5873",
+    "https://bloomix123.com/t1enpv3x?key=597d7d36b1a6ad49271ff607290bbc81",
+    "https://bloomix123.com/xf2hnxkq?key=3b7986d333ca360f3ff77fb59fef790c",
+    "https://bloomix123.com/rwpjw8t83z?key=05f200e76729dcd82a45449dd6122341",
+    "https://bloomix123.com/xnihxj2nv?key=1f3a4e9c54aaa5acd1ecb0145c68bf1d",
+    "https://bloomix123.com/yvtgirazqz?key=82046e3846c3108858b9d0dc99da11e5",
+    "https://bloomix123.com/hpi8kymga1?key=9012072763c66774e4926e6be57fa02c",
+    "https://bloomix123.com/s12s019mq?key=8f1e718bdec5d4cdd19319d1053ec6f0",
+    "https://bloomix123.com/dizdfd0jgp?key=5a37aa8b297894e4579c2fa43c9e606a",
+    "https://bloomix123.com/fr6snx0v?key=aebbfc6ba1245f38b7dc3a2454c7fcf3",
+    "https://bloomix123.com/f56939q59j?key=59417881f8fea38545031f7b61f7f260",
+    "https://bloomix123.com/y9b8tb0u0?key=f1423c5efec71d190b9071d6ef38c6cf",
+    "https://bloomix123.com/hdg9nzhm9b?key=072391c36bbf198a8a980699eb1209ac",
+    "https://bloomix123.com/tzkmx6c565?key=b34568e00c55a5bb390785c54e33434b",
+    "https://bloomix123.com/dn49swq743?key=6c9d360660c00c5c9ff0c7391ddddbe3",
+    "https://bloomix123.com/t7rzqg2d2i?key=ca89f74ad2f5ec27f1d3137e37210a07",
+    "https://bloomix123.com/wn2m9b4a?key=c35b8f0905db875fcdbaccc0a297ed1b",
+    "https://bloomix123.com/htw21smy?key=a52575254427750fb57bf01efd1ed361",
+    "https://bloomix123.com/dskk5p9g?key=c9cfd1c71585a258361613e9850a47fd",
+    "https://bloomix123.com/ndskesht?key=8344cd1e0e5728d89a2dc29fffce395b",
+    "https://bloomix123.com/xudx6ewdbt?key=bfa38a302e4f4968fc931d1569c012eb",
+    "https://bloomix123.com/ju1wx7azd?key=ed260d66b3452b4bcad0179985707c87"
+  ];
+
+  // ========== UNIQUE USER-FRIENDLY & AD-COMPLIANT OFFER NAMES (CorePortal v1.0 themed) ==========
+  const OFFER_NAMES = [
+    "🚪 Portal Starter Key", "⚡ Core Surge Token", "💎 Diamond Core Pass", "🌟 Stellar Portal Bonus", "🏆 Portal Victory Vault",
+    "🚀 Core Boost Voucher", "🎯 Portal Target Bonus", "🔑 Core Access Key", "📀 Portal Digital Crate", "🕹️ Core Gamer Perk",
+    "🎧 Portal Audio Pack", "📱 Core Mobile Bonus", "💡 Portal Bright Deal", "🛡️ Core Secure Plus", "📚 Portal Insider Pass",
+    "🎨 Core Creator Kit", "⚙️ Portal Utility Perk", "🔔 Core Flash Alert", "🌐 Portal Global Access", "🧩 Core Mystery Tile",
+    "🎵 Portal Sound Pack", "📸 Core Snapshot", "🕶️ Portal Stealth Perk", "🍀 Core Lucky Token", "🧭 Portal Navigator Bonus",
+    "🎲 Core Dice Reward", "🃏 Portal Wild Card", "🎈 Core Celebration", "⭐ Portal Ultimate Bonus", "🔥 Core Power Up",
+    "🚪 Portal Prime Key", "⚡ Core Surge Plus", "💎 Portal Diamond Pack", "🌟 Core Stellar Bonus", "🏆 Portal Victory Plus",
+    "🚀 Core Boost Max", "🎯 Portal Target Pro", "🔑 Core Access Max", "📀 Portal Digital Plus", "🕹️ Core Pro Perk",
+    "🎧 Portal Audio Boost", "📱 Core Elite Bonus", "💡 Portal Smart Deal", "🛡️ Core Shield Plus", "📚 Portal Expert Pass",
+    "🎨 Core Artisan Kit", "⚙️ Portal Power Perk", "🔔 Core Alert Pro", "🌐 Portal World Access", "🧩 Core Ultimate Tile"
+  ];
+
+  // Matching icons for each offer
+  const OFFER_ICONS = [
+    "door-open", "bolt", "gem", "star", "trophy", "rocket", "bullseye", "key", "database", "gamepad",
+    "headphones", "mobile-alt", "lightbulb", "shield-alt", "book", "palette", "cogs", "bell", "globe", "puzzle-piece",
+    "music", "camera", "sunglasses", "leaf", "compass", "dice-d6", "star-of-life", "balloon", "crown", "fire",
+    "door-open", "bolt", "gem", "star", "trophy", "rocket", "bullseye", "key", "database", "gamepad",
+    "headphones", "mobile-alt", "lightbulb", "shield-alt", "book", "palette", "cogs", "bell", "globe", "puzzle-piece"
+  ];
+
+  const TOTAL_OFFERS = 50;
+  const TIER_COUNT = 17; // 16 tiers × 3 + 1 tier × 2 = 50
+
+  // Shuffle array utility (Fisher-Yates) for unique order per user
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  // Get persistent shuffled order for this user
+  function getShuffledIndices() {
+    const ORDER_KEY = "corePortalShuffledOrderV1";
+    const saved = localStorage.getItem(ORDER_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.length === TOTAL_OFFERS) return parsed;
+    }
+    const indices = Array.from({ length: TOTAL_OFFERS }, (_, i) => i);
+    shuffleArray(indices);
+    localStorage.setItem(ORDER_KEY, JSON.stringify(indices));
+    return indices;
+  }
+
+  const shuffledOrder = getShuffledIndices();
+
+  // Build tier offers using shuffled order
+  const TIER_OFFERS = {};
+  let offerIndex = 0;
+  for (let tier = 1; tier <= TIER_COUNT; tier++) {
+    TIER_OFFERS[tier] = [];
+    const offersInTier = (tier === TIER_COUNT) ? 2 : 3;
+    for (let j = 0; j < offersInTier; j++) {
+      const globalIdx = shuffledOrder[offerIndex];
+      TIER_OFFERS[tier].push({
+        name: OFFER_NAMES[globalIdx % OFFER_NAMES.length],
+        icon: OFFER_ICONS[globalIdx % OFFER_ICONS.length],
+        link: ALL_LINKS[globalIdx],
+        originalIndex: globalIdx
+      });
+      offerIndex++;
+    }
+  }
+
+  let clickCounts = new Array(TOTAL_OFFERS).fill(0);
+  let claimedStatus = new Array(TOTAL_OFFERS).fill(false);
+  const STORAGE_KEY = "corePortalClicksV1";
+  const CLAIMED_KEY = "corePortalClaimedV1";
+
+  function loadCounts() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        let arr = JSON.parse(saved);
+        if (arr.length === TOTAL_OFFERS) clickCounts = arr;
+      } catch(e) {}
+    }
+    const savedClaimed = localStorage.getItem(CLAIMED_KEY);
+    if (savedClaimed) {
+      try {
+        let arr = JSON.parse(savedClaimed);
+        if (arr.length === TOTAL_OFFERS) claimedStatus = arr;
+      } catch(e) {}
+    }
+  }
+  function saveCounts() { 
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(clickCounts));
+    localStorage.setItem(CLAIMED_KEY, JSON.stringify(claimedStatus));
+  }
+  function updateTotalDisplay() {
+    const total = clickCounts.reduce((a,b)=>a+b,0);
+    document.getElementById("totalClicks").innerText = total;
+  }
+
+  let currentTier = 1;
+
+  function renderCurrentTier() {
+    const grid = document.getElementById("offersGrid");
+    grid.innerHTML = "";
+    const offers = TIER_OFFERS[currentTier];
+    const tierNames = [
+      "Starter Pack", "Bronze Tier", "Silver Tier", "Gold Tier", 
+      "Platinum Tier", "Emerald Tier", "Ruby Tier", "Sapphire Tier", 
+      "Diamond Tier", "Ultimate Vault", "Portal Pro", "Core Elite",
+      "Master Tier", "Legend Tier", "Mythic Tier", "Godlike Tier", "Final Vault"
+    ];
+    const levelTitle = document.getElementById("levelName");
+    const levelBadge = document.getElementById("levelBadge");
+    levelTitle.innerText = `Tier ${currentTier} · ${tierNames[currentTier-1]}`;
+    levelBadge.innerText = `${offers.length} Offers`;
+
+    offers.forEach((offer) => {
+      const globalIdx = offer.originalIndex;
+      const count = clickCounts[globalIdx];
+      const isClaimed = claimedStatus[globalIdx];
+      const hasClick = count > 0;
+      
+      const btn = document.createElement("a");
+      if (!isClaimed) {
+        btn.href = offer.link;
+        btn.target = "_blank";
+        btn.rel = "noopener noreferrer";
+      } else {
+        btn.href = "javascript:void(0);";
+      }
+      btn.className = `offer-btn ${hasClick ? "clicked" : ""} ${isClaimed ? "disabled" : ""}`;
+      btn.setAttribute("data-global", globalIdx);
+      
+      btn.innerHTML = `<div class="btn-left"><i class="fas fa-${offer.icon}"></i><span>${offer.name}</span></div><div class="click-count">${count}</div>`;
+      
+      if (!isClaimed) {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (claimedStatus[globalIdx]) return false;
+          
+          claimedStatus[globalIdx] = true;
+          clickCounts[globalIdx] += 1;
+          saveCounts();
+          updateTotalDisplay();
+          renderCurrentTier();
+          
+          window.open(offer.link, "_blank");
+          return false;
+        });
+      } else {
+        btn.style.cursor = "not-allowed";
+        btn.onclick = (e) => { e.preventDefault(); return false; };
+      }
+      
+      grid.appendChild(btn);
+    });
+  }
+
+  function setActiveTier(tier) {
+    currentTier = tier;
+    document.querySelectorAll(".level-btn").forEach(btn => {
+      if (parseInt(btn.getAttribute("data-level")) === tier) btn.classList.add("active");
+      else btn.classList.remove("active");
+    });
+    document.querySelectorAll(".mobile-tier-btn").forEach(btn => {
+      if (parseInt(btn.getAttribute("data-level")) === tier) btn.classList.add("active");
+      else btn.classList.remove("active");
+    });
+    renderCurrentTier();
+  }
+
+  function resetCounters() {
+    for (let i = 0; i < TOTAL_OFFERS; i++) {
+      clickCounts[i] = 0;
+      claimedStatus[i] = false;
+    }
+    saveCounts();
+    updateTotalDisplay();
+    renderCurrentTier();
+  }
+
+  function buildTriggers() {
+    const desktopContainer = document.getElementById("desktopTriggers");
+    const mobileContainer = document.getElementById("mobileTriggers");
+    desktopContainer.innerHTML = "";
+    mobileContainer.innerHTML = "";
+    for (let i = 1; i <= TIER_COUNT; i++) {
+      const dBtn = document.createElement("div");
+      dBtn.className = "level-btn";
+      dBtn.setAttribute("data-level", i);
+      dBtn.innerHTML = `<i class="fas fa-tag"></i> ${i}`;
+      dBtn.addEventListener("click", () => setActiveTier(i));
+      desktopContainer.appendChild(dBtn);
+      const mBtn = document.createElement("div");
+      mBtn.className = "mobile-tier-btn";
+      mBtn.setAttribute("data-level", i);
+      mBtn.innerHTML = `<i class="fas fa-tag"></i> ${i}`;
+      mBtn.addEventListener("click", () => setActiveTier(i));
+      mobileContainer.appendChild(mBtn);
+    }
+  }
+
+  document.getElementById("resetAllBtn").addEventListener("click", resetCounters);
+  loadCounts();
+  buildTriggers();
+  setActiveTier(1);
+  updateTotalDisplay();
+</script>
+</body>
+</html>
